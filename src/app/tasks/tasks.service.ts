@@ -18,6 +18,10 @@ export class TasksService {
   }
 
   updateTaskStatus(taskId: string, newStatus: TaskStatusEnum) {
-    
+    this.tasks.update((oldTasks) =>
+      oldTasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      )
+    );
   }
 }
