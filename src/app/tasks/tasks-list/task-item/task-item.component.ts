@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Task, TaskStatus } from '../../task.model';
+import { Task, TaskStatusEnum } from '../../task.model';
 
 @Component({
   selector: 'app-task-item',
@@ -26,19 +26,20 @@ export class TaskItemComponent {
   });
 
   onChangeTaskStatus(taskId: string, status: string) {
-    let newStatus: TaskStatus = 'OPEN';
+    let newStatus: TaskStatusEnum = TaskStatusEnum.OPEN;
 
     switch (status) {
       case 'open':
-        newStatus = 'OPEN';
+        newStatus = TaskStatusEnum.OPEN;
         break;
       case 'in-progress':
-        newStatus = 'IN_PROGRESS';
+        newStatus = TaskStatusEnum.IN_PROGRESS;
         break;
       case 'done':
-        newStatus = 'DONE';
+        newStatus = TaskStatusEnum.DONE;
         break;
       default:
+        newStatus = TaskStatusEnum.OPEN;
         break;
     }
   }
