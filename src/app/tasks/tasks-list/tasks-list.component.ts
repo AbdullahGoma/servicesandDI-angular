@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TasksService } from '../tasks.service';
-import { TaskStatusEnum } from '../task.model';
+import { TASK_STATUS_OPTIONS, TaskStatusEnum, taskStatusOptionProvider } from '../task.model';
 import { TasksServiceToken } from '../../../main';
 
 @Component({
@@ -11,11 +11,13 @@ import { TasksServiceToken } from '../../../main';
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
   imports: [TaskItemComponent],
+  providers: [ taskStatusOptionProvider ]
 })
 export class TasksListComponent {
   private tasksService = inject(TasksServiceToken);
   // private tasksService = inject(TasksService);
   private selectedFilter = signal<string>('all');
+  taskStatusOptions = inject(TASK_STATUS_OPTIONS);
   tasks = computed(() => {
     switch (this.selectedFilter()) {
       case 'all':
